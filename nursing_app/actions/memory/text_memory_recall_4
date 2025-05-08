@@ -1,3 +1,7 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
 <*,*,it,*>: Qual e' stata la quarta immagine?
 <*,*,es,*>: Cual fue la cuarta imagen?
 <*,*,en,*>: What was the fourth image?
@@ -16,7 +20,3 @@ dog
 <*,*,es,*>: dog
 <*,*,en,*>: dog
 ----
-ASRCMD
-<*,*,it,*>: [LOAD_GRAMMAR] frame_memory
-<*,*,es,*>: [LOAD_GRAMMAR] frame_memory
-<*,*,en,*>: [LOAD_GRAMMAR] frame_memory

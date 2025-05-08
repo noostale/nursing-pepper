@@ -1,3 +1,8 @@
-<*,*,it,*>: bear.jpg
-<*,*,es,*>: bear.jpg
-<*,*,en,*>: bear.jpg
+TEXT
+<*,*,it,*>: Immagine 5
+<*,*,*,*>: Image 5
+----
+IMAGE
+<*,*,it,*>: img/bear.jpg
+<*,*,en,*>: img/bear.jpg
+----

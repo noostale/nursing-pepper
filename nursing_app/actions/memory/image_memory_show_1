@@ -1,3 +1,8 @@
-<*,*,it,*>: dolphin.jpg
-<*,*,es,*>: dolphin.jpg
-<*,*,en,*>: dolphin.jpg
+TEXT
+<*,*,it,*>: Immagine 1
+<*,*,*,*>: Image 1
+----
+IMAGE
+<*,*,it,*>: img/dolphin.jpg
+<*,*,en,*>: img/dolphin.jpg
+----

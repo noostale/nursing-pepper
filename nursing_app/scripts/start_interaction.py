@@ -46,6 +46,9 @@ def interaction():
 
     # Initialize the interaction manager
     im.init()
+    
+    # Sleep for one second
+    time.sleep(1)
 
     # Simulate sonar input
     front = raw_input('Enter sonar distance (In this demo, each distance is a person): ')
@@ -164,7 +167,7 @@ def interaction():
         with open('database.csv', 'ab') as f:
             writer = csv.writer(f)
             writer.writerow([front_val, name, score])
-    if choice == "reflexes_test":
+    elif choice == "reflexes_test":
         
         im.ask("reflexes_test", 1)
         
@@ -179,6 +182,56 @@ def interaction():
         final_time = time.time() - start_time
         
         print("Time to toch my hand: %f" % final_time)
+    
+    elif choice == "memory_test":
+        #im.ask("memory_test", 1)
+
+        # 1. Show the 5 images (one at a time)
+        for i in range(1, 6):
+            im.ask("memory/image_memory_show_%d" % i, 1)
+            time.sleep(3)  # Simulate time to show the image
+
+        # 2. Ask the 5 recall questions
+        user_answers = []
+        for i in range(1, 6):
+            answer = im.ask("memory/text_memory_recall_%d" % i)
+            # Convert answer to string
+            answer = str(answer)
+            user_answers.append(answer)
+            
+
+        print("User memory answers:", user_answers)
+
+        # 3. Compute a score (you can customize this mapping)
+        # Assuming image filenames (without .jpg) were the correct answers
+        correct_sequence = ["dolphin", "horse", "cat", "dog", "bear"]
+
+        memory_score = 0
+        for user_ans, correct in zip(user_answers, correct_sequence):
+            if user_ans == correct:
+                memory_score += 1
+
+        print("Memory test score: %d/5" % memory_score)
+
+        # 4. Save to CSV
+        with open('database.csv', 'ab') as f:
+            writer = csv.writer(f)
+            writer.writerow([front_val, name, 'memory_score', memory_score])
+
+        # 5. Feedback to user
+        feedback_map = {
+            5: "excellent_memory",
+            4: "very_good_memory",
+            3: "good_memory",
+            2: "fair_memory",
+            1: "poor_memory",
+            0: "no_memory"
+        }
+
+        feedback = feedback_map[memory_score]
+        im.execute(feedback)
+
+    
         
                 
 

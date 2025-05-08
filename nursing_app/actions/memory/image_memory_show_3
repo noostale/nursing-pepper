@@ -1,3 +1,8 @@
-<*,*,it,*>: cat.jpg
-<*,*,es,*>: cat.jpg
-<*,*,en,*>: cat.jpg
+TEXT
+<*,*,it,*>: Immagine 3
+<*,*,*,*>: Image 3
+----
+IMAGE
+<*,*,it,*>: img/cat.jpg
+<*,*,en,*>: img/cat.jpg
+----
