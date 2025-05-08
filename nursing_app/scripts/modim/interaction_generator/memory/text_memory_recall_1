@@ -1,0 +1,22 @@
+<*,*,it,*>: Qual e' stata la prima immagine?
+<*,*,es,*>: Cual fue la primera imagen?
+<*,*,en,*>: What was the first image?
+----
+BUTTONS
+dog
+<*,*,it,*>: dog
+<*,*,es,*>: dog
+<*,*,en,*>: dog
+cat
+<*,*,it,*>: cat
+<*,*,es,*>: cat
+<*,*,en,*>: cat
+dolphin
+<*,*,it,*>: dolphin
+<*,*,es,*>: dolphin
+<*,*,en,*>: dolphin
+----
+ASRCMD
+<*,*,it,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,es,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,en,*>: [LOAD_GRAMMAR] frame_memory

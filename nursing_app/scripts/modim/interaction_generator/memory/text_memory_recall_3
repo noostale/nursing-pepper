@@ -1,0 +1,22 @@
+<*,*,it,*>: Qual e' stata la terza immagine?
+<*,*,es,*>: Cual fue la tercera imagen?
+<*,*,en,*>: What was the third image?
+----
+BUTTONS
+bear
+<*,*,it,*>: bear
+<*,*,es,*>: bear
+<*,*,en,*>: bear
+cat
+<*,*,it,*>: cat
+<*,*,es,*>: cat
+<*,*,en,*>: cat
+horse
+<*,*,it,*>: horse
+<*,*,es,*>: horse
+<*,*,en,*>: horse
+----
+ASRCMD
+<*,*,it,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,es,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,en,*>: [LOAD_GRAMMAR] frame_memory

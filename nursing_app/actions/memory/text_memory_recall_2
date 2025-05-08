@@ -1,0 +1,22 @@
+<*,*,it,*>: Qual e' stata la seconda immagine?
+<*,*,es,*>: Cual fue la segunda imagen?
+<*,*,en,*>: What was the second image?
+----
+BUTTONS
+bear
+<*,*,it,*>: bear
+<*,*,es,*>: bear
+<*,*,en,*>: bear
+horse
+<*,*,it,*>: horse
+<*,*,es,*>: horse
+<*,*,en,*>: horse
+cat
+<*,*,it,*>: cat
+<*,*,es,*>: cat
+<*,*,en,*>: cat
+----
+ASRCMD
+<*,*,it,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,es,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,en,*>: [LOAD_GRAMMAR] frame_memory

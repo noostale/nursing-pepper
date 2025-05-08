@@ -1,0 +1,22 @@
+<*,*,it,*>: Qual e' stata la quinta immagine?
+<*,*,es,*>: Cual fue la quinta imagen?
+<*,*,en,*>: What was the fifth image?
+----
+BUTTONS
+cat
+<*,*,it,*>: cat
+<*,*,es,*>: cat
+<*,*,en,*>: cat
+bear
+<*,*,it,*>: bear
+<*,*,es,*>: bear
+<*,*,en,*>: bear
+horse
+<*,*,it,*>: horse
+<*,*,es,*>: horse
+<*,*,en,*>: horse
+----
+ASRCMD
+<*,*,it,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,es,*>: [LOAD_GRAMMAR] frame_memory
+<*,*,en,*>: [LOAD_GRAMMAR] frame_memory

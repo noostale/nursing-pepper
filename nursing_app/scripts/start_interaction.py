@@ -74,7 +74,7 @@ def interaction():
     choice = im.ask('welcome')
     
     if choice == "quiz":
-        answers = [im.ask("question%d" % i) for i in range(1, 8)]
+        answers = [im.ask("questions/question%d" % i) for i in range(1, 8)]
 
         # Print all answers
         print(tuple(answers))
