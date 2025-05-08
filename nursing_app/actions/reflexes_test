@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Tocca una delle mie mani più velocemente che puoi!
+<*,*,*,*>: Touch one of my hands as fast as you can!
+----
+TTS
+<*,*,it,*>: Tocca una delle mie mani più velocemente che puoi!
+<*,*,*,*>: Touch one of my hands as fast as you can!
+----

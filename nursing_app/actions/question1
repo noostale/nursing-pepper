@@ -1,0 +1,28 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Come valuteresti la tua salute generale?
+<*,*,*,*>: How would you rate your general health?
+----
+TTS
+<*,*,it,*>: Come valuteresti la tua salute generale?
+<*,*,*,*>: How would you rate your general health?
+----
+BUTTONS
+excellent
+<*,*,it,*>: Eccellente
+<*,*,*,*>: Excellent
+very_good
+<*,*,it,*>: Molto buona
+<*,*,*,*>: Very good
+good
+<*,*,it,*>: Buona
+<*,*,*,*>: Good
+fair
+<*,*,it,*>: Discreta
+<*,*,*,*>: Fair
+poor
+<*,*,it,*>: Scarsa
+<*,*,*,*>: Poor
+----

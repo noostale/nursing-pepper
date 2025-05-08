@@ -1,0 +1,26 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Hai difficoltà a camminare o muoverti?
+<*,*,*,*>: Do you have any difficulty walking or moving around?
+----
+TTS
+<*,*,it,*>: Hai difficoltà a camminare o muoverti?
+<*,*,*,*>: Do you have any difficulty walking or moving around?
+----
+BUTTONS
+no_difficulty
+<*,*,it,*>: Nessuna difficoltà
+<*,*,*,*>: No difficulty
+some_difficulty
+<*,*,it,*>: Qualche difficoltà
+<*,*,*,*>: Some difficulty
+a_lot_of_difficulty
+<*,*,it,*>: Molta difficoltà
+<*,*,*,*>: A lot of difficulty
+unable
+<*,*,it,*>: Impossibile
+<*,*,*,*>: Unable
+----
+

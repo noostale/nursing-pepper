@@ -1,0 +1,26 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Hai dolori che limitano le tue attività quotidiane?
+<*,*,*,*>: Do you have any pain that limits your daily activities?
+----
+TTS
+<*,*,it,*>: Hai dolori che limitano le tue attività quotidiane?
+<*,*,*,*>: Do you have any pain that limits your daily activities?
+----
+BUTTONS
+none
+<*,*,it,*>: Nessuno
+<*,*,*,*>: None
+slight
+<*,*,it,*>: Leggeri
+<*,*,*,*>: Slight
+moderate
+<*,*,it,*>: Moderati
+<*,*,*,*>: Moderate
+severe
+<*,*,it,*>: Gravi
+<*,*,*,*>: Severe
+----
+

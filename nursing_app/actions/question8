@@ -1,0 +1,28 @@
+IMAGE
+<*,*,*,*>: img/eating.jpg
+----
+TEXT
+<*,*,it,*>: Segui un'alimentazione regolare?
+<*,*,*,*>: Do you follow a regular eating schedule?
+----
+TTS
+<*,*,it,*>: Segui un'alimentazione regolare?
+<*,*,*,*>: Do you follow a regular eating schedule?
+----
+BUTTONS
+always
+<*,*,it,*>: Sempre
+<*,*,*,*>: Always
+often
+<*,*,it,*>: Spesso
+<*,*,*,*>: Often
+sometimes
+<*,*,it,*>: A volte
+<*,*,*,*>: Sometimes
+rarely
+<*,*,it,*>: Raramente
+<*,*,*,*>: Rarely
+never
+<*,*,it,*>: Mai
+<*,*,*,*>: Never
+----

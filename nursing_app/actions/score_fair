@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Ci sono alcuni segnali di malessere. Mantieni uno stile di vita sano e controlla i sintomi.
+<*,*,*,*>: There are some signs of discomfort. Maintain a healthy lifestyle and monitor symptoms.
+----
+TTS
+<*,*,it,*>: Ci sono alcuni segnali di malessere. Mantieni uno stile di vita sano e controlla i sintomi.
+<*,*,*,*>: There are some signs of discomfort. Maintain a healthy lifestyle and monitor symptoms.
+----

@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: La tua salute è buona. Continua a prenderti cura di te stesso.
+<*,*,*,*>: Your health is good. Keep taking care of yourself.
+----
+TTS
+<*,*,it,*>: La tua salute è buona. Continua a prenderti cura di te stesso.
+<*,*,*,*>: Your health is good. Keep taking care of yourself.
+----

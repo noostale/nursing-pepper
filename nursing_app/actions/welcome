@@ -1,0 +1,22 @@
+IMAGE
+<*, *, *, *>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Sei pronto? Seleziona una delle opzioni qui sotto.
+<*,*,*,*>: Are you ready? Select one of options below.
+----
+TTS
+<*,*,it,*>: Sei pronto?
+<*,*,*,*>: Are you ready?
+----
+BUTTONS
+quiz
+<*,*,it,*>: Quiz salute generale
+<*,*,*,*>: General heath quiz
+reflexes_test
+<*,*,it,*>: Test dei riflessi
+<*,*,*,*>:  Reflexes test
+memory_test
+<*,*,it,*>: Test della memoria
+<*,*,*,*>:  Memory test
+----

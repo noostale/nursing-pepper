@@ -1,0 +1,29 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Quanto spesso ti senti felice o soddisfatto?
+<*,*,*,*>: How often do you feel happy or content?
+----
+TTS
+<*,*,it,*>: Quanto spesso ti senti felice o soddisfatto?
+<*,*,*,*>: How often do you feel happy or content?
+----
+BUTTONS
+always
+<*,*,it,*>: Sempre
+<*,*,*,*>: Always
+often
+<*,*,it,*>: Spesso
+<*,*,*,*>: Often
+sometimes
+<*,*,it,*>: A volte
+<*,*,*,*>: Sometimes
+rarely
+<*,*,it,*>: Raramente
+<*,*,*,*>: Rarely
+never
+<*,*,it,*>: Mai
+<*,*,*,*>: Never
+----
+

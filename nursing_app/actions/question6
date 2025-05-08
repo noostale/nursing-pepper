@@ -1,0 +1,26 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Dormi bene la notte?
+<*,*,*,*>: Do you sleep well at night?
+----
+TTS
+<*,*,it,*>: Dormi bene la notte?
+<*,*,*,*>: Do you sleep well at night?
+----
+BUTTONS
+yes_regularly
+<*,*,it,*>: Sì, regolarmente
+<*,*,*,*>: Yes, regularly
+sometimes
+<*,*,it,*>: A volte
+<*,*,*,*>: Sometimes
+rarely
+<*,*,it,*>: Raramente
+<*,*,*,*>: Rarely
+never
+<*,*,it,*>: Mai
+<*,*,*,*>: Never
+----
+

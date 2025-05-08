@@ -1,0 +1,25 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Ti sei sentito stanco o senza energia nell'ultima settimana?
+<*,*,*,*>: Have you felt tired or low on energy in the past week?
+----
+TTS
+<*,*,it,*>: Ti sei sentito stanco o senza energia nell'ultima settimana?
+<*,*,*,*>: Have you felt tired or low on energy in the past week?
+----
+BUTTONS
+not_at_all
+<*,*,it,*>: Per niente
+<*,*,*,*>: Not at all
+a_little
+<*,*,it,*>: Un po'
+<*,*,*,*>: A little
+moderately
+<*,*,it,*>: Moderatamente
+<*,*,*,*>: Moderately
+very_much
+<*,*,it,*>: Molto
+<*,*,*,*>: Very much
+----

@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Stai facendo un ottimo lavoro. La tua salute è in ottime condizioni.
+<*,*,*,*>: You're doing a great job. Your health is in very good condition.
+----
+TTS
+<*,*,it,*>: Stai facendo un ottimo lavoro. La tua salute è in ottime condizioni.
+<*,*,*,*>: You're doing a great job. Your health is in very good condition.
+----

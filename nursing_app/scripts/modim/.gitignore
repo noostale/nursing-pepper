@@ -1,0 +1,4 @@
+*~
+*.pyc
+.DS_Store
+src/GUI/*.png

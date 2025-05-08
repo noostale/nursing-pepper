@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/welcome.jpeg
+----
+TEXT
+<*,*,it,*>: Salute eccellente! Continua così!
+<*,*,*,*>: Excellent health! Keep it up!
+----
+TTS
+<*,*,it,*>: Salute eccellente! Continua così!
+<*,*,*,*>: Excellent health! Keep it up!
+----
