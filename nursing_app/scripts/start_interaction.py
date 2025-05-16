@@ -2,6 +2,8 @@
 
 from modim.ws_client import ModimWSClient
 from modim.interaction_manager import InteractionManager as im
+from rdflib import Graph, Namespace, URIRef, RDF, Literal
+
 
 
 # Virtual TTS code to be added so that you can hear a voice 
@@ -32,6 +34,33 @@ def interaction():
     import csv
     import time
 
+
+    # URN namespace definition
+    EX = Namespace("urn:robot:")
+
+    # Load existing RDF graph or initialize a new one
+    graph = Graph()
+    try:
+        graph.parse("people_graph.ttl", format="turtle")
+    except:
+        pass  # No previous graph
+
+    # Define a function to add a person to the graph where the id
+    # is the distance
+    def person_uri_from_distance(d):
+        return URIRef("urn:robot:person:%.2f" % d)
+
+    # Simulate a person URI
+    person_uri = person_uri_from_distance(1.0)  # Example distance
+    
+    graph.add((person_uri, RDF.type, EX.Person))
+    graph.add((person_uri, EX.hasName, Literal("Paolo")))
+    graph.set((person_uri, EX.hasScore, Literal("12")))
+    
+    # Save the graph to a file
+    graph.serialize(destination="people_graph.ttl", format="turtle")
+
+
     # Load CSV into a lookup dict (float key: string value)
     people = {}
     with open('database.csv', 'rb') as f:
@@ -59,22 +88,28 @@ def interaction():
 
     print('front:', front_val)
 
+
     # Simulate hand greeting the user
+    im.executeModality("TEXT", "I see someone in front of me!")
     im.greet_user_animation()
 
 
     if front_val in people:
         name = people[front_val]
-        im.executeModality('TTS', 'Hello, %s, I remember you' % name)
+        im.executeModality('TEXT', 'Hello, %s, I remember you!' % name)
+        im.executeModality('TTS', 'Hello, %s, I remember you!' % name)
     else:
-        im.executeModality('TTS', 'Hello, visitor, I have never seen you, tell me your name')
+        im.executeModality('TTS', 'Hell, visitor, I have never seen you, tell me your name!')
+        im.executeModality('TEXT', 'Hello visitor, I have never seen you, tell me your name!')
         name = raw_input('Please enter your name (Will be speeched to the robot): ')
         
         im.simulate_human_say(name)
+        im.executeModality('TEXT', 'Hello, %s, I will remember you next time' % name)
         im.executeModality('TTS', 'Hi, %s, I will remember you next time' % name)
 
     # Continue with the rest of the interaction
     choice = im.ask('welcome')
+    im.executeModality('TEXT', "Are you ready %s? Select one of the options below!" % name)
     
     if choice == "quiz":
         answers = [im.ask("questions/question%d" % i) for i in range(1, 8)]

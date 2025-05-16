@@ -1,0 +1,5 @@
+
+<urn:robot:person:1.00> a <urn:robot:Person> ;
+    <urn:robot:hasName> "Paolo" ;
+    <urn:robot:hasScore> "12" .
+

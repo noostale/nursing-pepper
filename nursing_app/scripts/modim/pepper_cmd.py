@@ -24,6 +24,9 @@ from datetime import datetime
 import pyttsx3
 import csv
 
+from rdflib import Graph, Namespace, URIRef, RDF, Literal
+
+
 
 import qi
 from naoqi import ALProxy

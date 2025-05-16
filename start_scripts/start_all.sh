@@ -1,29 +1,58 @@
 #!/bin/bash
 
-# Navigate to Choregraphe directory
-cd /opt/Aldebaran/choregraphe-suite-2.5.10.7-linux64 || {
-    echo "Choregraphe directory not found!"
-    exit 1
-}
+####################################
+##        NAOqi Launching        ##
+####################################
 
-# Run Choregraphe
-echo "Starting Choregraphe..."
+# Navigate to the NAOqi SDK installation directory
+cd /opt/Aldebaran/naoqi-sdk-2.5.7.1-linux64
+
+# Launch the NAOqi executable using xterm and keep the terminal open
+echo "Initializing NAOqi..."
+xterm -hold -e ./naoqi &
+
+# Allow sufficient time for NAOqi to start and stabilize
+echo "Waiting for NAOqi initialization..."
+sleep 5
+
+
+####################################
+##      Choregraphe Launching     ##
+####################################
+
+# Change directory to Choregraphe installation path
+cd /opt/Aldebaran/choregraphe-suite-2.5.10.7-linux64
+
+# Launch Choregraphe IDE silently in the background
+echo "Launching Choregraphe environment..."
 ./choregraphe > /dev/null 2>&1 &
 
-# Open the GUI in Firefox
-firefox ~/playground/nursing_app/index.html > /dev/null 2>&1 &
 
-# Start MODIM WebSocket server in a new terminal with an internal 2-second delay
+####################################
+##         Web GUI Launch         ##
+####################################
+
+# Open the local web interface using Firefox inside an xterm window
+echo "Launching web interface in Firefox..."
+xterm -hold -e "firefox ~/playground/nursing_app/index.html" &
+
+
+####################################
+##     Interaction Script Start   ##
+####################################
+
+# Start the interaction Python script after a brief delay (ensures MODIM is running)
+echo "Starting interaction script..."
 xterm -hold -e "sleep 1 && cd ~/playground/nursing_app/scripts/ && python start_interaction.py" &
 
 
-# Navigate to the MODIM GUI directory
-cd ~/playground/nursing_app/scripts/modim/ || {
-    echo "MODIM GUI directory not found!"
-    exit 1
-}
+####################################
+##     MODIM Server Execution     ##
+####################################
 
-# Run the WebSocket server in the background (interactive)
-echo "Starting MODIM WebSocket server for 'pepper'..."
+# Navigate to the MODIM server script directory
+cd ~/playground/nursing_app/scripts/modim/
+
+# Execute the MODIM WebSocket server in interactive mode for Pepper
+echo "Launching MODIM WebSocket server for Pepper..."
 python ws_server.py -robot pepper
-
