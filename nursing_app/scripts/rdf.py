@@ -43,18 +43,23 @@ def interaction():
     # Check if we already know this person
     name_literal = graph.value(person_uri, EX.hasName)
     if name_literal:
-        # Known person
+        # Start interaction with a known person
         name = unicode(name_literal)
         im.executeModality('TEXT', 'Hello, %s, I remember you!' % name)
         im.executeModality('TTS', 'Hello, %s, I remember you!' % name)
     else:
-        # New visitor
+        # Start interaction with a new person
         im.executeModality('TTS', 'Hello visitor, I have never seen you. What is your name?')
         im.executeModality('TEXT', 'Hello visitor, I have never seen you. What is your name?')
+        
+        # Simulate human saying their name
         name = raw_input('Please enter your name: ')
         im.simulate_human_say(name)
+        
+        # Make robot greet the new person
         im.executeModality('TEXT', 'Hello, %s, I will remember you next time.' % name)
         im.executeModality('TTS', 'Hi, %s, I will remember you next time.' % name)
+        
         # Add new person to the graph
         graph.add((person_uri, RDF.type, EX.Person)) # This single person is of type 'Person'
         graph.add((person_uri, EX.hasName, Literal(name))) # This person has a name 'name'
@@ -66,7 +71,7 @@ def interaction():
     if choice == 'quiz':
         # Quiz flow
         answers = [im.ask('questions/question%d' % i) for i in range(1, 8)]
-        score_map = {
+        answers_map = {
             'poor': 1, 'fair': 2, 'good': 3, 'very_good': 4, 'excellent': 5,
             'very_much': 1, 'moderately': 2, 'a_little': 3, 'not_at_all': 4,
             'severe': 1, 'moderate': 2, 'slight': 3, 'none': 4,
@@ -74,36 +79,37 @@ def interaction():
             'unable': 1, 'a_lot_of_difficulty': 2, 'some_difficulty': 3, 'no_difficulty': 4,
             'yes_regularly': 4, 'extremely': 1, 'quite_a_bit': 2
         }
-        score = sum(score_map.get(ans, 0) for ans in answers)
+        total = sum(answers_map.get(ans, 0) for ans in answers)
 
-        def classify(total):
-            if total <= 12:
-                return 'score_poor'
-            elif total <= 18:
-                return 'score_fair'
-            elif total <= 24:
-                return 'score_good'
-            elif total <= 30:
-                return 'score_very_good'
-            else:
-                return 'score_excellent'
+        if total <= 12:
+            score = 'score_poor'
+        elif total <= 18:
+            score = 'score_fair'
+        elif total <= 24:
+            score = 'score_good'
+        elif total <= 30:
+            score = 'score_very_good'
+        else:
+            score = 'score_excellent'
 
-        wellbeing = classify(score)
-        im.execute(wellbeing)
+        im.execute(score)
 
         graph.set((person_uri, EX.hasScore, Literal(score))) # This person has a score of x
-        graph.set((person_uri, EX.hasWellbeing, Literal(wellbeing))) # This person has a wellbeing of x
+        graph.set((person_uri, EX.hasWellbeingFeedback, Literal(score))) # This person has a wellbeing of x
 
     elif choice == 'reflexes_test':
-        im.ask('reflexes_test', 1)
+        im.ask('reflexes_test')
         
         total_time = 0.0
         for i in range(10):
             print('Test #%d: Press Enter to simulate touching the robot\'s hand...' % (i + 1))
             start_time = time.time()
             raw_input()
+            
+            # Simulate hand touch on both sides
             im.simulate_hand_touch(left=False, value=1.0)
             im.simulate_hand_touch(left=True, value=1.0)
+            
             reflex_time = time.time() - start_time
             print('Time for test #%d: %.3fs' % (i + 1, reflex_time))
             total_time += reflex_time
@@ -111,10 +117,24 @@ def interaction():
         avg_reflex_time = total_time / 10.0
         print('Average reflex time: %.3fs' % avg_reflex_time)
         
+        # Infer reflex score
+        if avg_reflex_time < 0.5:
+            reflex_score = 'excellent_reflexes'
+        elif avg_reflex_time < 1.0:
+            reflex_score = 'very_good_reflexes'
+        elif avg_reflex_time < 1.5:
+            reflex_score = 'good_reflexes'
+        elif avg_reflex_time < 2.0:
+            reflex_score = 'fair_reflexes'
+        else:
+            reflex_score = 'poor_reflexes'
+        
         im.executeModality('TEXT', 'Your average reflex time is %.3fs' % avg_reflex_time)
         im.executeModality('TTS', 'Your average reflex time is %.3fs' % avg_reflex_time)
-
+        time.sleep(1)
+        
         graph.set((person_uri, EX.hasReflexTime, Literal(avg_reflex_time))) # This person has a reflex time of x
+        graph.set((person_uri, EX.hasReflexFeedback, Literal(reflex_score))) # This person has a reflex score that classifies them as x
 
     elif choice == 'memory_test':
         for i in range(1, 6):
@@ -129,9 +149,12 @@ def interaction():
 
         feedback_map = {5: 'excellent_memory', 4: 'very_good_memory', 3: 'good_memory',
                         2: 'fair_memory', 1: 'poor_memory', 0: 'no_memory'}
-        im.execute(feedback_map[memory_score])
+        im.executeModality('TEXT', 'Your memory score is %d out of 5' % memory_score)
+        im.executeModality('TTS', 'Your memory score is %d out of 5' % memory_score)
+        time.sleep(1)
 
         graph.set((person_uri, EX.hasMemoryScore, Literal(memory_score))) # This person has a memory score of x
+        graph.set((person_uri, EX.hasMemoryFeedback, Literal(feedback_map[memory_score]))) # This person has a memory feedback of x
 
     graph.serialize(destination='../people_graph.ttl', format='turtle')
     im.init()
