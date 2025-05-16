@@ -1,0 +1,7 @@
+@prefix robot_kb: <http://example.org/robot_kb#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+robot_kb:person_123.00 a robot_kb:Person ;
+    robot_kb:hasName "Paolo" ;
+    robot_kb:hasReflexTime 1.970389e-01 .
+

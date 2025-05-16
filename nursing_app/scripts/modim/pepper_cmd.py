@@ -25,6 +25,8 @@ import pyttsx3
 import csv
 
 from rdflib import Graph, Namespace, URIRef, RDF, Literal
+from rdflib.namespace import OWL, RDFS, XSD
+
 
 
 

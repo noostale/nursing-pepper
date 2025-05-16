@@ -43,7 +43,7 @@ xterm -hold -e "firefox ~/playground/nursing_app/index.html" &
 
 # Start the interaction Python script after a brief delay (ensures MODIM is running)
 echo "Starting interaction script..."
-xterm -hold -e "sleep 1 && cd ~/playground/nursing_app/scripts/ && python start_interaction.py" &
+xterm -hold -e "sleep 1 && cd ~/playground/nursing_app/scripts/ && python rdf.py" &
 
 
 ####################################
