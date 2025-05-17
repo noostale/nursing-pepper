@@ -47,6 +47,28 @@ def interaction():
         name = unicode(name_literal)
         im.executeModality('TEXT', 'Hello, %s, I remember you!' % name)
         im.executeModality('TTS', 'Hello, %s, I remember you!' % name)
+        
+        # Retrieve previous wellbeing score
+        wellbeing_feedback = graph.value(person_uri, EX.hasWellbeingFeedback)
+        reflex_feedback = graph.value(person_uri, EX.hasReflexFeedback)
+        memory_feedback = graph.value(person_uri, EX.hasMemoryFeedback)
+        
+         # If wellbeing was poor or fair, ask if they feel better now
+        if wellbeing_feedback in [Literal('score_poor'), Literal('score_fair')]:
+            im.executeModality('TEXT', 'Last time, you reported not feeling great. Do you feel better today?')
+            im.executeModality('TTS', 'Last time, you reported not feeling great. Do you feel better today?')
+        elif wellbeing_feedback in [Literal('score_good'), Literal('score_very_good'), Literal('score_excellent')]:
+            im.executeModality('TEXT', 'Great to see you again! Keep up the good wellbeing, %s!' % name)
+            im.executeModality('TTS', 'Great to see you again! Keep up the good wellbeing, %s!' % name)
+        
+        # Reflex/memory encouragement
+        if reflex_feedback in [Literal('poor_reflexes'), Literal('fair_reflexes')]:
+            im.executeModality('TEXT', 'Your reflexes were a bit slow last time. Want to try again today?')
+            im.executeModality('TTS', 'Your reflexes were a bit slow last time. Want to try again today?')
+
+        if memory_feedback in [Literal('poor_memory'), Literal('no_memory'), Literal('fair_memory')]:
+            im.executeModality('TEXT', 'Want to see if your memory has improved since last time?')
+            im.executeModality('TTS', 'Want to see if your memory has improved since last time?')
     else:
         # Start interaction with a new person
         im.executeModality('TTS', 'Hello visitor, I have never seen you. What is your name?')

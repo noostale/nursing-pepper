@@ -9,7 +9,7 @@ cd /opt/Aldebaran/naoqi-sdk-2.5.7.1-linux64
 
 # Launch the NAOqi executable using xterm and keep the terminal open
 echo "Initializing NAOqi..."
-xterm -hold -e ./naoqi &
+xterm -fa Monospace -fs 10 -hold -e ./naoqi &
 
 # Allow sufficient time for NAOqi to start and stabilize
 echo "Waiting for NAOqi initialization..."
@@ -25,7 +25,7 @@ cd /opt/Aldebaran/choregraphe-suite-2.5.10.7-linux64
 
 # Launch Choregraphe IDE silently in the background
 echo "Launching Choregraphe environment..."
-./choregraphe > /dev/null 2>&1 &
+./choregraphe /home/robot/playground/start_scripts/pepper/pepper.pml > /dev/null 2>&1 &
 
 
 ####################################
@@ -34,7 +34,7 @@ echo "Launching Choregraphe environment..."
 
 # Open the local web interface using Firefox inside an xterm window
 echo "Launching web interface in Firefox..."
-xterm -hold -e "firefox ~/playground/nursing_app/index.html" &
+xterm -fa Monospace -fs 10 -hold -e "firefox ~/playground/nursing_app/index.html" &
 
 
 ####################################
@@ -43,7 +43,7 @@ xterm -hold -e "firefox ~/playground/nursing_app/index.html" &
 
 # Start the interaction Python script after a brief delay (ensures MODIM is running)
 echo "Starting interaction script..."
-xterm -hold -e "sleep 1 && cd ~/playground/nursing_app/scripts/ && python rdf.py" &
+xterm -fa Monospace -fs 10 -hold -e "sleep 1 && cd ~/playground/nursing_app/scripts/ && python rdf.py" &
 
 
 ####################################
