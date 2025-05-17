@@ -1,32 +1,33 @@
 #!/bin/bash
 
-SESSION="start_env"
-SCRIPT_DIR=~/playground/start_scripts
+SESSION=init
 
-# Start a new tmux session in detached mode
-tmux new-session -d -s $SESSION -c $SCRIPT_DIR
+tmux -2 new-session -d -s $SESSION
 
-# Pane 0: Run start_naoqi.sh
-tmux send-keys -t $SESSION "bash $SCRIPT_DIR/start_naoqi.sh" C-m
+tmux rename-window -t $SESSION:0 'naoqi'
+tmux new-window -t $SESSION:1 -n 'choregraphe'
+tmux new-window -t $SESSION:2 -n 'pepper_tools'
+tmux new-window -t $SESSION:3 -n 'modim'
+tmux new-window -t $SESSION:4 -n 'playground'
 
-# Split vertically and run start_modim_ws.sh
-tmux split-window -v -t $SESSION -c $SCRIPT_DIR
-tmux send-keys -t $SESSION "bash $SCRIPT_DIR/start_modim_ws.sh" C-m
+tmux send-keys -t $SESSION:0 "cd /opt/Aldebaran/naoqi-sdk-2.5.7.1-linux64" C-m
+tmux send-keys -t $SESSION:0 "./naoqi"
 
-# Split horizontally from top pane (0) and run start_interaction.sh
-tmux select-pane -t $SESSION:.0
-tmux split-window -h -t $SESSION -c $SCRIPT_DIR
-tmux send-keys -t $SESSION "bash $SCRIPT_DIR/start_interaction.sh" C-m
+tmux send-keys -t $SESSION:1 "cd /opt/Aldebaran/choregraphe-suite-2.5.10.7-linux64" C-m
+tmux send-keys -t $SESSION:1 "./choregraphe"
 
-# Select bottom pane (1) and split it horizontally too
-tmux select-pane -t $SESSION:.1
-tmux split-window -h -t $SESSION -c $SCRIPT_DIR
-tmux send-keys -t $SESSION "bash $SCRIPT_DIR/start_firefox.sh" C-m
+tmux send-keys -t $SESSION:2 "cd src/pepper_tools" C-m
 
-# Select one pane (e.g., 3) and run start_choregraphe.sh
-tmux select-pane -t $SESSION:.3
-tmux split-window -v -t $SESSION -c $SCRIPT_DIR
-tmux send-keys -t $SESSION "bash $SCRIPT_DIR/start_choregraphe.sh" C-m
+tmux send-keys -t $SESSION:3 "cd ~/src/modim/src/GUI" C-m
+tmux send-keys -t $SESSION:3 "python ws_server.py -robot pepper"
 
-# Attach to the session
-tmux attach -t $SESSION
+tmux send-keys -t $SESSION:4 "cd ~/playground/start_scripts" C-m
+tmux send-keys -t $SESSION:4 "./start_all.sh"
+
+
+
+while [ 1 ]; do
+  sleep 60;
+done
+
+

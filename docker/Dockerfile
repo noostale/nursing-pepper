@@ -148,6 +148,18 @@ RUN cd /opt && \
 RUN apt update && \
     apt install -y python-tk
 
+RUN apt install -y espeak libespeak-dev
+
+
+RUN apt install -y xterm
+RUN apt install -y firefox
+
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install rdflib
+
+RUN pip install pyttsx3
+RUN pip install python-espeak
+
 USER robot
 
 ADD init.bash /home/robot/init.bash
