@@ -570,6 +570,7 @@ if __name__ == "__main__":
 
     # Run command server
     t = Thread(target=start_cmd_server, args=(cmd_server_port,))
+    t.deamon = True
     t.start()
 
     # Init robot display object and IM
@@ -605,17 +606,10 @@ if __name__ == "__main__":
         tornado.ioloop.IOLoop.instance().start()
     except KeyboardInterrupt:
         print(" -- Keyboard interrupt --")
-    try:
-        modim_websocket_server.close()
-    except:
-        pass
 
-    print("Web server quit.")
-    run = False
+    tornado.ioloop.IOLoop.instance().stop()
 
+    run = False 
     quit_interaction_manager()
 
-    print("Waiting for main loop to quit...")
-
-    sys.exit(0)
-
+    os._exit(0)

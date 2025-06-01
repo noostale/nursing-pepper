@@ -1,10 +1,6 @@
 IMAGE
 <*, *, *, *>: img/welcome.jpeg
 ----
-TEXT
-<*,*,it,*>: Sei pronto? Seleziona una delle opzioni qui sotto.
-<*,*,*,*>: Are you ready? Select one of options below.
-----
 TTS
 <*,*,it,*>: Sei pronto?
 <*,*,*,*>: Are you ready?
@@ -19,4 +15,10 @@ reflexes_test
 memory_test
 <*,*,it,*>: Test della memoria
 <*,*,*,*>:  Memory test
+talk
+<*,*,it,*>: Parla con me
+<*,*,*,*>: Talk with me
+exit
+<*,*,it,*>: Esci
+<*,*,*,*>: Exit
 ----

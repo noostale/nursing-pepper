@@ -1,6 +1,13 @@
 @prefix robot_kb: <http://example.org/robot_kb#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+robot_kb:person_0.20 a robot_kb:Person ;
+    robot_kb:hasName "Mirco Marco" ;
+    robot_kb:hasReflexFeedback "excellent_reflexes" ;
+    robot_kb:hasReflexTime 4.829717e-01 ;
+    robot_kb:lastInteractionDate "2025-06-01T19:31:02.606865" ;
+    robot_kb:previousInteractionDate "2025-06-01T19:27:06.740254" .
+
 robot_kb:person_123.00 a robot_kb:Person ;
     robot_kb:hasName "Paolo" ;
     robot_kb:hasReflexTime 1.970389e-01 .

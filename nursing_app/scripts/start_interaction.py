@@ -35,32 +35,6 @@ def interaction():
     import time
 
 
-    # URN namespace definition
-    EX = Namespace("urn:robot:")
-
-    # Load existing RDF graph or initialize a new one
-    graph = Graph()
-    try:
-        graph.parse("people_graph.ttl", format="turtle")
-    except:
-        pass  # No previous graph
-
-    # Define a function to add a person to the graph where the id
-    # is the distance
-    def person_uri_from_distance(d):
-        return URIRef("urn:robot:person:%.2f" % d)
-
-    # Simulate a person URI
-    person_uri = person_uri_from_distance(1.0)  # Example distance
-    
-    graph.add((person_uri, RDF.type, EX.Person))
-    graph.add((person_uri, EX.hasName, Literal("Paolo")))
-    graph.set((person_uri, EX.hasScore, Literal("12")))
-    
-    # Save the graph to a file
-    graph.serialize(destination="people_graph.ttl", format="turtle")
-
-
     # Load CSV into a lookup dict (float key: string value)
     people = {}
     with open('database.csv', 'rb') as f:
