@@ -5,9 +5,16 @@ from modim.ws_client import ModimWSClient
 from modim.interaction_manager import InteractionManager as im
 from rdflib import Graph, Namespace, URIRef, RDF, Literal
 import time
+import sys
+
+# Redirect stderr to devnull to silence ALSA warnings
+#sys.stderr = open(os.devnull, 'w')
+        
 
 # Main interaction function
 def interaction():
+    import os
+    import sys
     from datetime import datetime
 
 
@@ -72,12 +79,14 @@ def interaction():
                 return "Error: {}".format(str(e))
 
         
-        
-        im.executeModality('TEXT', 'Hi! I am Nursing Pepper, your friendly robot nurse. How can I help you today?')
         im.executeModality('TTS', 'Hi! I am Nursing Pepper, your friendly robot nurse. How can I help you today?')
+        im.executeModality('TEXT', 'Hi! I am Nursing Pepper, your friendly robot nurse. How can I help you today?')
+        
         while True:
             try:
-                user_input = raw_input("You: ")  # type: ignore
+                #user_input = raw_input("You: ")  # type: ignore
+                user_input = im.speech_to_text()
+                print("You:", user_input)
             except EOFError:
                 break
 
@@ -90,8 +99,8 @@ def interaction():
             answer = get_gemini_response(user_input)
             print("Nursing Pepper:", answer)
             # Let the robot both display and speak the reply
-            im.executeModality('TEXT', answer)
             im.executeModality('TTS', answer)
+            im.executeModality('TEXT', answer)
         
         
     def run_quiz(im, graph, person_uri, EX):
@@ -183,6 +192,7 @@ def interaction():
         graph.set((person_uri, EX.hasMemoryFeedback, Literal(feedback_map[memory_score])))
 
 
+
     EX = Namespace("http://example.org/robot_kb#")
 
     def person_uri_from_distance(d):
@@ -246,11 +256,12 @@ def interaction():
             im.executeModality('TEXT', 'Want to see if your memory has improved since last time?')
             im.executeModality('TTS', 'Want to see if your memory has improved since last time?')
     else:
-        im.executeModality('TTS', 'Hello visitor, I have never seen you. What is your name?')
         im.executeModality('TEXT', 'Hello visitor, I have never seen you. What is your name?')
-        name = raw_input('Please enter your name: ') # type: ignore
-        im.simulate_human_say(name)
-        im.executeModality('TEXT', 'Hello, %s, I will remember you next time.' % name)
+        im.executeModality('TTS', 'Hello visitor, I have never seen you. What is your name?')
+        #name = raw_input('Please enter your name: ') # type: ignore
+        #im.simulate_human_say(name)
+        name = im.speech_to_text()  # type: ignore
+        im.executeModality('TEXT', 'Hi, %s, I will remember you next time.' % name)
         im.executeModality('TTS', 'Hi, %s, I will remember you next time.' % name)
         graph.add((person_uri, RDF.type, EX.Person))
         graph.add((person_uri, EX.hasName, Literal(name)))
@@ -263,7 +274,9 @@ def interaction():
         im.executeModality('TEXT', 'Are you ready, %s? Select one of the options below!' % name)
         choice = im.ask('welcome')
         
-        if choice == 'quiz':
+        voice_command = im.speech_to_text()  # type: ignore
+        
+        if choice == 'quiz' or voice_command == 'quiz':
             run_quiz(im, graph, person_uri, EX)
         elif choice == 'reflexes_test':
             run_reflex_test(im, graph, person_uri, EX)
@@ -284,3 +297,7 @@ if __name__ == '__main__':
     mws = ModimWSClient()
     mws.setDemoPathAuto(__file__)
     mws.run_interaction(interaction)
+
+
+# Functions benchmark -> non legati al task, ma alle capacità del robot a prescindere (NON CAMBIANO MAI)
+# Task benchmark -> applicazione specifica, valutazione degli achievement chiave del contesto specifico del robot (gamification) (cambiano in base al task)

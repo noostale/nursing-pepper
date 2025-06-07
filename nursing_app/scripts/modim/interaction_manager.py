@@ -10,7 +10,7 @@ from action.actionReader import *
 from action.actionWriter import ActionWriter
 from action.profileMatcher import ProfileMatcher
 
-
+os.environ['ALSA_LOG_LEVEL'] = 'none'
 
 import csv
 
@@ -23,7 +23,22 @@ from pepper_cmd import PepperRobot
 
 from ws_server import DisplayWS
 
+from gtts import gTTS
+import tempfile
+import os
+
+
 languages = {"en" : "English", "it": "Italian"}
+
+
+import speech_recognition as sr
+
+
+import os
+import sys
+
+# Redirect stderr to devnull to silence ALSA warnings
+sys.stderr = open(os.devnull, 'w')
 
 
 def printError(message):
@@ -62,12 +77,45 @@ class InteractionManager:
         
     def simulate_speaking(self, text):
         self.speaker.say(text)
-        
-        # Add a delay to simulate the speaking time
-        # You can adjust the delay based on the length of the text
-        # For example, let's assume 0.1 seconds per character
-        speaking_time = 0.1 * len(text)
-        time.sleep(speaking_time)
+        # Wait for the speech to finish
+        time.sleep(0.4*len(text.split()))  # Rough estimate of speaking time based on word count
+
+    def speech_to_text(self):
+        # Initialize recognizer
+        r = sr.Recognizer()
+
+
+
+        while True:
+            # Use the microphone as the audio source
+            with sr.Microphone() as source:
+                print("Calibrating for ambient noise...")
+                r.adjust_for_ambient_noise(source, duration=0.5)
+                # wait 0.5 seconds to adjust for ambient noise
+                time.sleep(0.5)
+                print("Please say something:")
+                audio_data = r.listen(source)
+            try:
+                # Recognize speech using Google Speech Recognition
+                text = r.recognize_google(audio_data, language="en-US")
+                print("You said: {0}".format(text))
+                return text
+            except sr.UnknownValueError:
+                print("Google Speech Recognition could not understand audio, try again")
+            except sr.RequestError as e:
+                print("Could not request results from Google, try again")
+
+
+    def google_tts(self, text, lang='en'):
+        try:
+            tts = gTTS(text=text, lang=lang)
+            temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+            tts.save(temp_file.name)
+            os.system("mpg123 %s" % temp_file.name)
+            os.remove(temp_file.name)
+        except Exception as e:
+            print("Google TTS error:", str(e))
+
 
 
     def setDemoPath(self, path):
@@ -431,6 +479,7 @@ class InteractionManager:
                 print('say('+interaction+')')            
                 if (self.robot != None):
                     self.robot.say(interaction)
+                    self.google_tts(interaction, "en-US")
                     #self.simulate_speaking(interaction)
 
         
