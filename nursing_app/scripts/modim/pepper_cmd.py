@@ -1188,7 +1188,7 @@ class PepperRobot:
         jointValues = [0.00, -0.21, 1.55, 0.13, -1.24, -0.52, 0.01, 1.56, -0.14, 1.22, 0.52, -0.01,
                        0, 0, 0, 0, 0]
         isAbsolute = True
-        self.motion_service.angleInterpolation(self.jointNames, jointValues, 3.0, isAbsolute)
+        self.motion_service.angleInterpolation(self.jointNames, jointValues, 1.5, isAbsolute)
 
 
     def setPosture(self, jointValues):
@@ -1212,7 +1212,7 @@ class PepperRobot:
             jointValues = [ -1.0, 0.3, -1.22, -0.52, 1.08]
 
         isAbsolute = True
-        self.motion_service.angleInterpolation(jointNames, jointValues, 3.0, isAbsolute)
+        self.motion_service.angleInterpolation(jointNames, jointValues, 1.5, isAbsolute)
     
     def lowerArm(self, which='R'):  # or 'L' for left arm
         if (which == 'R'):
@@ -1229,6 +1229,73 @@ class PepperRobot:
         self.raiseArm('R')
         time.sleep(1)
         self.lowerArm('R')
+    
+    def happy_animation(self):
+        if self.stop_request:
+            return
+
+        print("Happy animation")
+
+        # Green eyes
+        self.green_eyes()
+
+        # Raise both arms joyfully
+        jointNames = ["LShoulderPitch", "LShoulderRoll", "LElbowYaw", "LElbowRoll",
+                    "RShoulderPitch", "RShoulderRoll", "RElbowYaw", "RElbowRoll"]
+        jointValues = [-1.0, 0.4, -1.0, -0.6, -1.0, -0.4, 1.0, 0.6]
+        times = [1.5] * len(jointNames)
+        self.motion_service.angleInterpolation(jointNames, jointValues, times, True)
+
+        # Optional: head nod
+        self.headPose(0.0, -0.3, 1.0)
+
+        # Return to normal posture
+        self.normalPosture()
+
+    def sad_animation(self):
+        if self.stop_request:
+            return
+
+        print("Sad animation")
+
+        # Blue eyes
+        self.blue_eyes()
+
+        # Lower head
+        self.headPose(0.0, 0.5, 1.5)
+
+        # Drop arms
+        jointNames = ["LShoulderPitch", "LElbowRoll", "RShoulderPitch", "RElbowRoll"]
+        jointValues = [1.5, -0.3, 1.5, 0.3]
+        times = [2.0] * len(jointNames)
+        self.motion_service.angleInterpolation(jointNames, jointValues, times, True)
+
+        # Return to normal posture
+        self.normalPosture()
+
+    def raise_hands_front(self):
+        if self.stop_request:
+            return
+
+        print("Raising hands in front")
+
+        # Raise both arms in front of the body (as if to gesture or block)
+        jointNames = [
+            "LShoulderPitch", "LShoulderRoll", "LElbowYaw", "LElbowRoll",
+            "RShoulderPitch", "RShoulderRoll", "RElbowYaw", "RElbowRoll"
+        ]
+        
+        jointValues = [
+            0.5, 0.2, -1.5, -0.3,  # Left arm
+            0.5, -0.2, 1.5, 0.3    # Right arm
+        ]
+        
+        times = [1.5] * len(jointNames)
+        self.motion_service.angleInterpolation(jointNames, jointValues, times, True)
+
+        # Optional: slight head nod
+        self.headPose(0.0, -0.3, 1.0)
+
     
 
 

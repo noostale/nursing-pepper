@@ -2,17 +2,20 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 robot_kb:person_0.20 a robot_kb:Person ;
-    robot_kb:hasName "Mirco Marco" ;
+    robot_kb:hasMemoryFeedback "good_memory" ;
+    robot_kb:hasMemoryScore 3 ;
+    robot_kb:hasName "Enrico Aldorasi" ;
     robot_kb:hasReflexFeedback "excellent_reflexes" ;
     robot_kb:hasReflexTime 4.829717e-01 ;
-    robot_kb:lastInteractionDate "2025-06-01T19:31:02.606865" ;
-    robot_kb:previousInteractionDate "2025-06-01T19:27:06.740254" .
+    robot_kb:hasScore "score_very_good" ;
+    robot_kb:hasWellbeingFeedback "score_very_good" ;
+    robot_kb:lastInteractionDate "2025-06-07T11:17:52.449577" ;
+    robot_kb:previousInteractionDate "2025-06-01T19:31:02.606865" .
 
-robot_kb:person_0.70 a robot_kb:Person ;
+robot_kb:person_0.30 a robot_kb:Person ;
     robot_kb:hasName "Valentina" ;
-    robot_kb:lastInteractionDate "2025-06-07T09:30:32.217415" .
-
-robot_kb:person_123.00 a robot_kb:Person ;
-    robot_kb:hasName "Paolo" ;
-    robot_kb:hasReflexTime 1.970389e-01 .
+    robot_kb:hasScore "score_poor" ;
+    robot_kb:hasWellbeingFeedback "score_poor" ;
+    robot_kb:lastInteractionDate "2025-06-07T15:02:08.359968" ;
+    robot_kb:previousInteractionDate "2025-06-07T15:00:17.040534" .
 

@@ -87,16 +87,19 @@ class InteractionManager:
 
 
         while True:
-            # Use the microphone as the audio source
             with sr.Microphone() as source:
                 print("Calibrating for ambient noise...")
                 r.adjust_for_ambient_noise(source, duration=0.5)
-                # wait 0.5 seconds to adjust for ambient noise
-                time.sleep(0.5)
                 print("Please say something:")
-                audio_data = r.listen(source)
+
+                try:
+                    # Increase timeout and phrase_time_limit as needed
+                    audio_data = r.listen(source, timeout=10, phrase_time_limit=10)
+                except sr.WaitTimeoutError:
+                    print("Listening timed out while waiting for phrase to start.")
+                    continue
+
             try:
-                # Recognize speech using Google Speech Recognition
                 text = r.recognize_google(audio_data, language="en-US")
                 print("You said: {0}".format(text))
                 return text
@@ -261,11 +264,12 @@ class InteractionManager:
             self.display.reset_answer = True
 
 
-    def ask(self, actionname, timeout=100, audio=True):
-        if actionname!=None:
+    def ask(self, actionname, timeout=1000, audio=True):
+        if actionname is not None:
             self.execute(actionname, audio=audio)
         self.answer_asr = None
         self.answer_buttons = None
+
         # start ASR and BUTTONS threads
         ta = Thread(target=self.asr_run, args=(timeout,))
         ta.start()
@@ -274,25 +278,29 @@ class InteractionManager:
 
         t = 0
         dt = 0.25
+        a = None  # first answer
+        all_ok_asked = False  # flag to ensure it's only asked once
+
         time.sleep(dt)
-        a = None # first answer
-        while timeout<0 or t<timeout:
-            if self.answer_asr != None and self.answer_asr != '':
+        while timeout < 0 or t < timeout:
+            if self.answer_asr is not None and self.answer_asr != '':
                 a = self.answer_asr
-                #print('MODIM debug:: ask from asr [%s]' %a)
                 break
-            elif self.answer_buttons != None:
+            elif self.answer_buttons is not None:
                 a = self.answer_buttons
-                #print('MODIM debug:: ask from buttons [%s]' %a)
                 break
+
+            if not all_ok_asked and t >= 25:
+                self.executeModality('TTS', 'All ok? I am waiting for answer')
+                all_ok_asked = True
+
             time.sleep(dt)
             t += dt
 
         self.ask_cancel()
-
-        #print('MODIM debug:: ask return value here [%s]' %a)
         self.display.remove_buttons()
-        if (a == None):
+
+        if a is None:
             a = 'timeout'
         else:
             a = a.rstrip()
@@ -366,10 +374,18 @@ class InteractionManager:
     
     def greet_user_animation(self):
         self.robot.greet_user()
+    
+    def happy_animation(self):
+        self.robot.happy_animation()
         
-
-
-                    
+    def sad_animation(self):
+        self.robot.sad_animation()
+        
+    def raise_hands_front(self):
+        self.robot.raise_hands_front()
+        
+    def normal_posture(self):
+        self.robot.normalPosture()
 
     def executeModality(self, modality, interaction):
 

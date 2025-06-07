@@ -135,6 +135,8 @@ def interaction():
     def run_reflex_test(im, graph, person_uri, EX):
         im.executeModality('TEXT', "Touch one of my hands as fast as you can!")
 
+        im.raise_hands_front()
+
         total_time = 0.0
         for i in range(10):
             print('Test #%d: Press Enter to simulate touching the robot\'s hand...' % (i + 1))
@@ -164,7 +166,10 @@ def interaction():
 
         im.executeModality('TEXT', 'Your average reflex time is %.3fs' % avg_reflex_time)
         im.executeModality('TTS', 'Your average reflex time is %.3fs' % avg_reflex_time)
-        time.sleep(1)
+        
+        im.normal_posture()
+        
+        time.sleep(2)
 
         graph.set((person_uri, EX.hasReflexTime, Literal(avg_reflex_time)))
         graph.set((person_uri, EX.hasReflexFeedback, Literal(reflex_score)))
@@ -230,6 +235,7 @@ def interaction():
 
     name_literal = graph.value(person_uri, EX.hasName)
     if name_literal:
+        im.greet_user_animation()
         name = unicode(name_literal) # type: ignore
         im.executeModality('TEXT', 'Hello, %s, I remember you!' % name)
         im.executeModality('TTS', 'Hello, %s, I remember you!' % name)
@@ -243,18 +249,47 @@ def interaction():
         if wellbeing_feedback in [Literal('score_poor'), Literal('score_fair')]:
             im.executeModality('TEXT', 'Last time, you reported not feeling great. Do you feel better today?')
             im.executeModality('TTS', 'Last time, you reported not feeling great. Do you feel better today?')
+            answer = im.speech_to_text()
+            if answer.lower() in ['yes', 'sure', 'of course', 'absolutely']:
+                im.executeModality('TEXT', 'I am glad to hear that, %s!' % name)
+                im.executeModality('TTS', 'I am glad to hear that, %s!' % name)
+                im.happy_animation()
+            else:
+                im.executeModality('TEXT', 'I am sorry to hear that, %s. I hope you feel better soon.' % name)
+                im.executeModality('TTS', 'I am sorry to hear that, %s. I hope you feel better soon.' % name)
+                im.sad_animation()
+            
+            
             
         elif wellbeing_feedback in [Literal('score_good'), Literal('score_very_good'), Literal('score_excellent')]:
             im.executeModality('TEXT', 'Great to see you again! Keep up the good wellbeing, %s!' % name)
             im.executeModality('TTS', 'Great to see you again! Keep up the good wellbeing, %s!' % name)
+            im.happy_animation()
 
         if reflex_feedback in [Literal('poor_reflexes'), Literal('fair_reflexes')]:
             im.executeModality('TEXT', 'Your reflexes were a bit slow last time. Want to try again today?')
             im.executeModality('TTS', 'Your reflexes were a bit slow last time. Want to try again today?')
+            answer = im.speech_to_text()
+            if answer.lower() in ['yes', 'sure', 'of course', 'absolutely']:
+                im.executeModality('TEXT', 'Great! Let\'s see if you can improve your reflexes today!')
+                im.executeModality('TTS', 'Great! Let\'s see if you can improve your reflexes today!')
+                run_reflex_test(im, graph, person_uri, EX)
+            else:
+                im.executeModality('TEXT', 'No problem, we can skip the reflex test today.')
+                im.executeModality('TTS', 'No problem, we can skip the reflex test today.')
 
         if memory_feedback in [Literal('poor_memory'), Literal('no_memory'), Literal('fair_memory')]:
             im.executeModality('TEXT', 'Want to see if your memory has improved since last time?')
             im.executeModality('TTS', 'Want to see if your memory has improved since last time?')
+            answer = im.speech_to_text()
+            if answer.lower() in ['yes', 'sure', 'of course', 'absolutely']:
+                im.executeModality('TEXT', 'Great! Let\'s test your memory today!')
+                im.executeModality('TTS', 'Great! Let\'s test your memory today!')
+                run_memory_test(im, graph, person_uri, EX)
+            else:
+                im.executeModality('TEXT', 'No problem, we can skip the memory test today.')
+                im.executeModality('TTS', 'No problem, we can skip the memory test today.')
+            
     else:
         im.executeModality('TEXT', 'Hello visitor, I have never seen you. What is your name?')
         im.executeModality('TTS', 'Hello visitor, I have never seen you. What is your name?')
@@ -273,10 +308,8 @@ def interaction():
         
         im.executeModality('TEXT', 'Are you ready, %s? Select one of the options below!' % name)
         choice = im.ask('welcome')
-        
-        voice_command = im.speech_to_text()  # type: ignore
-        
-        if choice == 'quiz' or voice_command == 'quiz':
+                
+        if choice == 'quiz':
             run_quiz(im, graph, person_uri, EX)
         elif choice == 'reflexes_test':
             run_reflex_test(im, graph, person_uri, EX)
