@@ -19,3 +19,14 @@ robot_kb:person_0.30 a robot_kb:Person ;
     robot_kb:lastInteractionDate "2025-06-07T15:02:08.359968" ;
     robot_kb:previousInteractionDate "2025-06-07T15:00:17.040534" .
 
+robot_kb:person_0.60 a robot_kb:Person ;
+    robot_kb:hasName "Luca" ;
+    robot_kb:lastInteractionDate "2025-06-08T12:08:23.707980" .
+
+robot_kb:person_0.78 a robot_kb:Person ;
+    robot_kb:hasName "Paulo" ;
+    robot_kb:hasScore "score_poor" ;
+    robot_kb:hasWellbeingFeedback "score_poor" ;
+    robot_kb:lastInteractionDate "2025-06-08T20:21:08.845679" ;
+    robot_kb:previousInteractionDate "2025-06-08T20:15:51.199309" .
+

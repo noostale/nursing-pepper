@@ -291,8 +291,8 @@ def run_code(code):
         code += '\n'
         #code = 'pass'
 
-    print("Executing")
-    print(code)
+    #print("Executing")
+    #print(code)
 
     print("=== Start code run ===")
     try:

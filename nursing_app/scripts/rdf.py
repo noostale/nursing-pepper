@@ -6,9 +6,13 @@ from modim.interaction_manager import InteractionManager as im
 from rdflib import Graph, Namespace, URIRef, RDF, Literal
 import time
 import sys
+#import sounddevice
+import os
+os.environ['ALSA_LOG_LEVEL'] = 'none'
+
 
 # Redirect stderr to devnull to silence ALSA warnings
-#sys.stderr = open(os.devnull, 'w')
+sys.stderr = open(os.devnull, 'w')
         
 
 # Main interaction function
@@ -16,6 +20,9 @@ def interaction():
     import os
     import sys
     from datetime import datetime
+    import sounddevice
+
+
 
 
     def run_talk(im):
@@ -79,8 +86,9 @@ def interaction():
                 return "Error: {}".format(str(e))
 
         
-        im.executeModality('TTS', 'Hi! I am Nursing Pepper, your friendly robot nurse. How can I help you today?')
-        im.executeModality('TEXT', 'Hi! I am Nursing Pepper, your friendly robot nurse. How can I help you today?')
+        im.executeModality('TEXT', 'Hi! How can I help you today?')
+        im.executeModality('TTS', 'Hi! How can I help you today?')
+        
         
         while True:
             try:
@@ -99,8 +107,9 @@ def interaction():
             answer = get_gemini_response(user_input)
             print("Nursing Pepper:", answer)
             # Let the robot both display and speak the reply
-            im.executeModality('TTS', answer)
             im.executeModality('TEXT', answer)
+            im.executeModality('TTS', answer)
+            
         
         
     def run_quiz(im, graph, person_uri, EX):
@@ -134,6 +143,7 @@ def interaction():
 
     def run_reflex_test(im, graph, person_uri, EX):
         im.executeModality('TEXT', "Touch one of my hands as fast as you can!")
+        im.executeModality('TTS', "Touch one of my hands as fast as you can!")
 
         im.raise_hands_front()
 
@@ -258,8 +268,6 @@ def interaction():
                 im.executeModality('TEXT', 'I am sorry to hear that, %s. I hope you feel better soon.' % name)
                 im.executeModality('TTS', 'I am sorry to hear that, %s. I hope you feel better soon.' % name)
                 im.sad_animation()
-            
-            
             
         elif wellbeing_feedback in [Literal('score_good'), Literal('score_very_good'), Literal('score_excellent')]:
             im.executeModality('TEXT', 'Great to see you again! Keep up the good wellbeing, %s!' % name)

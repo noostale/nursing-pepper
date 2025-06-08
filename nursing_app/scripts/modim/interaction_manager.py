@@ -10,7 +10,6 @@ from action.actionReader import *
 from action.actionWriter import ActionWriter
 from action.profileMatcher import ProfileMatcher
 
-os.environ['ALSA_LOG_LEVEL'] = 'none'
 
 import csv
 
@@ -84,8 +83,6 @@ class InteractionManager:
         # Initialize recognizer
         r = sr.Recognizer()
 
-
-
         while True:
             with sr.Microphone() as source:
                 print("Calibrating for ambient noise...")
@@ -94,7 +91,7 @@ class InteractionManager:
 
                 try:
                     # Increase timeout and phrase_time_limit as needed
-                    audio_data = r.listen(source, timeout=10, phrase_time_limit=10)
+                    audio_data = r.listen(source)
                 except sr.WaitTimeoutError:
                     print("Listening timed out while waiting for phrase to start.")
                     continue

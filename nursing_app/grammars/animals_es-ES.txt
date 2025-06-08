@@ -1,6 +1,0 @@
-gatos, gato -> cat
-perros, perro -> dog
-caballos, caballo -> horse
-delfines, delfin -> dolphin
-pajaros, pajaro -> bird
-osos, oso -> bear
