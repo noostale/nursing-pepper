@@ -157,7 +157,7 @@ RUN apt install -y firefox
 RUN pip install --upgrade pip setuptools wheel
 RUN pip install rdflib
 
-RUN pip install pyttsx3
+RUN pip install "pyttsx3==2.7"
 RUN pip install python-espeak
 
 USER robot

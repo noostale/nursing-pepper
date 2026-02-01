@@ -1,6 +1,7 @@
 import os
 import urllib2
 from . import modimParameterServer as mps
+from __future__ import print_function
 
 def parseProfile(profile):
     parsedProfile = profile.lstrip('<').rstrip('> ')
@@ -18,20 +19,20 @@ class ActionReader(dict):
         self.actionFile = None
         # open action file from file system        
         try:
-            print 'openning file', actionFilename
+            print('openning file', actionFilename)
             self.actionFile = open(actionFilename, 'rU')
         except IOError:
-            print 'cannot open file', actionFilename
+            print('cannot open file', actionFilename)
 
         if self.actionFile==None:
             # open action file from web server
             try:
                 url = 'http://%s:%d/actions/%s' %(demoIP,demoPort,os.path.basename(actionFilename))
-                print 'openning url', url
+                print('openning url', url)
                 self.actionFile = urllib2.urlopen(url)
                 
             except IOError:
-                print 'cannot open URL', url
+                print('cannot open URL', url)
 
         if self.actionFile!=None:
             #initializing action
@@ -74,7 +75,7 @@ class ActionReader(dict):
                 else:
                     sectionRules.append(line)
 
-        print self
+        print(self)
         
     def parseSectionRules(self, sectionType, sectionRules):
 
@@ -140,5 +141,3 @@ class ActionReader(dict):
                     sectionType = linesplit[0]
                     content = parseContent(linesplit[1])
                     self[sectionType] = content
-                
-
